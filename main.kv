@@ -1,0 +1,266 @@
+#:kivy 1.0.0
+
+MDBottomNavigation:
+    dist:10
+    MDBottomNavigationItem:
+        text: 'Run'
+        name: 'screen1'
+        icon: 'run'
+        user_font_size: '64sp'
+        Image:
+            source: 'images/logo.png'
+            size_hint: (None, None) 
+            pos_hint: {"x":0.03 , "y": .85}               
+
+        Label: 
+            text: 'OctopiLaser'
+            pos_hint: {"x":0.3 , "y": .9}
+            color: [0, 0, 0, 1]
+            text_size: self.size
+            font_size: 40
+            bold: True
+
+        Label: 
+            text: 'Host IP'
+            pos_hint: {"x":0.125 , "y": .8}
+            color: [0, 0, 0, 1]
+            text_size: self.size
+            font_size: 22
+
+        Label: 
+            id:localIP
+            text: app.local_IP
+            pos_hint: {"x":0.125 , "y": .76}
+            color: [0, 0, 0, 1]
+            text_size: self.size
+            font_size: 25
+
+        Label: 
+            text: 'Status'
+            pos_hint: {"x":0.125, "y": .7}
+            color: [0, 0, 0, 1]
+            text_size: self.size
+            font_size: 22
+
+        Label: 
+            id: curr_status
+            text: app.curr_status
+            pos_hint: {"x":0.125, "y": .66}
+            color: [0, 0, 0, 1]
+            text_size: self.size
+            font_size: 25
+
+        Label: 
+            text: 'Job File Name'
+            pos_hint: {"x":0.125 , "y": .6}
+            color: [0, 0, 0, 1]
+            text_size: self.size
+            font_size: 22
+
+        Label: 
+            id: jobfilename
+            text: app.job_filename
+            pos_hint: {"x":0.125 , "y": .56}
+            color: [0, 0, 0, 1]
+            text_size: self.size
+            font_size: 25
+
+        Label: 
+            id: curr_time
+            text: app.curr_time
+            pos_hint: {"x":0.7 , "y": .76}
+            color: [0, 0, 0, 1]
+            text_size: self.size
+            font_size: 25
+
+        Label: 
+            text: 'Curr Time'
+            pos_hint: {"x":0.68 , "y": .8}
+            color: [0, 0, 0, 1]
+            text_size: self.size
+            font_size: 22
+
+        MDIconButton:
+            id: run_icon
+            icon: 'run'
+            user_font_size: '64sp'
+            theme_text_color: "Custom"
+            text_color: 0, 1, 0, 1
+            pos_hint: {"center_x": .33 , "y":.05}
+            disabled: False
+            on_release: app.run_mode()
+
+        MDIconButton:
+            id: cancel_icon
+            icon: 'cancel'
+            user_font_size: '64sp'
+            theme_text_color: "Custom"
+            text_color: 1, 0, 0, 1
+            pos_hint: {"center_x": .66 , "y":.05}
+            disabled: True
+            on_release: app.cancel_mode()
+
+    MDBottomNavigationItem:
+        text: 'Move'
+        name: 'screen2'
+        icon: 'swap-horizontal'
+
+        FloatLayout:
+            height: .7
+            Button:
+                background_normal: 'images/arrowUp.png'
+                background_down: 'images/arrowUpDn.png'
+                size_hint: (None, None) 
+                pos_hint: {"x":0.04 , "y": .43}                
+                on_press: app.move_routine('jog','z', root.dist)
+                
+            Button:
+                background_normal: 'images/arrowDown.png'
+                background_down: 'images/arrowDownDn.png'
+                size_hint: (None, None) 
+                pos_hint: {"x":0.04 , "y": .11}
+                on_press: app.move_routine('jog','z', root.dist *-1)
+                
+            Button:
+                background_normal: 'images/arrowUp.png'
+                background_down: 'images/arrowUpDn.png'
+                size_hint: (None, None) 
+                pos_hint: {"x":0.53 , "y": .43}
+                on_press: app.move_routine('jog','y', root.dist)
+
+            Button:
+                background_normal: 'images/arrowDown.png'
+                background_down: 'images/arrowDownDn.png'
+                size_hint: (None, None) 
+                pos_hint: {"x":0.53 , "y": .11}
+                on_press: app.move_routine('jog','y', root.dist * -1)
+
+            Button:
+                background_normal: 'images/arrowLeft.png'
+                background_down: 'images/arrowLeftDn.png'
+                size_hint: (None, None) 
+                pos_hint: {"x":0.3 , "y": .27}
+                on_press: app.move_routine('jog', 'x', root.dist * -1)
+
+            Button:
+                background_normal: 'images/arrowRight.png'
+                background_down: 'images/arrowRightDn.png'
+                size_hint: (None, None) 
+                pos_hint: {"x":0.77 , "y": .27}
+                on_press: app.move_routine('jog', 'x', root.dist)
+
+            Button:
+                background_normal: 'images/homeX.png'
+                background_down: 'images/homeXDn.png'
+                size_hint: (None, None) 
+                pos_hint: {"x":0.31 , "y": .43}
+                on_press: app.move_routine('home', 'X', '')
+
+            Button:
+                background_normal: 'images/homeY.png'
+                background_down: 'images/homeXDn.png'
+                size_hint: (None, None) 
+                pos_hint: {"x":0.75 , "y": .43}
+                on_press: app.move_routine('home', 'Y','')
+
+#            Button:
+#                background_normal: 'images/homeZ.png'
+#                background_down: 'images/homeZDn.png'
+#                size_hint: (None, None) 
+#                pos_hint: {"x":0.04 , "y": .27}
+#                on_press: app.move_routine('home', 'Z','')
+
+            Button:
+                background_normal: 'images/homeXY.png'
+                background_down: 'images/homeXYDn.png'
+                size_hint: (None, None) 
+                pos_hint: {"x":0.31 , "y": .12}
+                on_press: app.move_routine('home', 'X, Y','' )
+
+#            Button:
+#                background_normal: 'images/homeXYZ.png'
+#                background_down: 'images/HomeXYZDn.png'
+#                size_hint: (None, None) 
+#                pos_hint: {"x":0.53 , "y": .27}
+#                on_press: app.move_routine('home', 'X, Y, Z','' )
+            
+            ToggleButton:
+                name: 'dist01'
+                background_normal: 'images/01Up.png'
+                background_down: 'images/01Dn.png'
+                size_hint: (.12, .09) 
+                pos_hint: {"x":0.05 , "y": 0}
+                group: 'XYDistance'
+                on_press: root.dist = 0.1
+
+            ToggleButton: 
+                name: 'dist1'
+                background_normal: 'images/1Up.png'
+                background_down: 'images/1Dn.png'
+                size_hint: (.12, .09) 
+                pos_hint: {"x":0.18 , "y": 0}
+                group: 'XYDistance'
+                on_press: root.dist = 1
+
+            ToggleButton:
+                name: 'dist5'
+                background_normal: 'images/5Up.png'
+                background_down: 'images/5Dn.png'
+                size_hint: (.12, .09) 
+                pos_hint: {"x":0.31 , "y": 0}
+                group: 'XYDistance'
+                on_press: root.dist = 5
+
+            ToggleButton:
+                name: 'dist10'
+                background_normal: 'images/10Up.png'
+                background_down: 'images/10Dn.png'
+                size_hint: (.12, .09) 
+                pos_hint: {"x":0.44 , "y": 0}
+                group: 'XYDistance'
+                on_press: root.dist = 10
+                state: 'down'
+
+            ToggleButton:
+                name: 'dist25'
+                background_normal: 'images/25Up.png'
+                background_down: 'images/25Dn.png'
+                size_hint: (.12, .09) 
+                pos_hint: {"x":0.57 , "y": 0}
+                group: 'XYDistance'
+                on_press: root.dist = 25
+
+            ToggleButton:
+                name: 'dist50'
+                background_normal: 'images/50Up.png'
+                background_down: 'images/50Dn.png'
+                size_hint: (.12, .09) 
+                pos_hint: {"x":0.7 , "y": 0}
+                group: 'XYDistance'
+                on_press: root.dist = 50
+
+            ToggleButton:
+                name: 'dist100'
+                background_normal: 'images/100Up.png'
+                background_down: 'images/100Dn.png'
+                size_hint: (.12, .09) 
+                pos_hint: {"x":0.83 , "y": 0}
+                group: 'XYDistance'
+                on_press: root.dist = 100
+
+    MDBottomNavigationItem:
+        text: 'Setup'
+        name: 'screen3'
+        icon: 'folder-outline'
+        on_tab_press: app.setup_routine()
+        GridLayout:
+            cols: 1
+            rows: 2
+
+            MDList:
+                id: file_list
+     
+
+                
+
+ 
